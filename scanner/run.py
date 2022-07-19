@@ -2,12 +2,12 @@ import os
 
 from api.github import GetGithubGists
 from api.pipedrive import PostPipedriveActivity
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import logging
 
 logger = logging.getLogger(__name__)
-logging_level = logging.getLevelName(os.environ.get('SCANNER_LOG_LEVEL', "INFO"))
+logging_level = logging.getLevelName(os.environ.get('SCANNER_LOG_LEVEL', "DEBUG"))
 logging.basicConfig(level=logging_level,
                     format='%(asctime)s %(levelname)-8s %(filename)s %(message)s',
                     datefmt='%d.%m.%Y '
@@ -74,7 +74,13 @@ def parse_gists(username: str, since=""):
         convert_gist_to_pipedrive_activity(gist)
 
 
-def scan_users(users: list):
+def calculate_since(hours_interval: int, minutes_interval: int):
+    """Calculate since."""
+    since = datetime.utcnow() - timedelta(hours=hours_interval, minutes=minutes_interval)
+    return since.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def scan_users(users: list, hours_interval: int, minutes_interval: int):
     """Scan users."""
     logger.info(f"Found {len(users)} user(s) in user list.")
 
@@ -82,11 +88,16 @@ def scan_users(users: list):
     if not users:
         logger.error("No users to scan")
         raise Exception("No users to scan")
+
+    since = calculate_since(hours_interval, minutes_interval)
     logger.info(f"START SCANNING USERS")
     for user in users:
-        parse_gists(user)
+        parse_gists(user, since)
 
 
 if __name__ == '__main__':
-    users = ["ozubovasd", "ozubov"]
-    scan_users(users)
+    h_interval = os.environ.get('SCANNER_HOUR_INTERVAL', 3)
+    m_interval = os.environ.get('SCANNER_MINUTE_INTERVAL', 0)
+
+    users = ["ozubovasd", "ozubov", "Jose26398"]
+    scan_users(users, h_interval, m_interval)
