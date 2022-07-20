@@ -3,14 +3,26 @@ import logging
 from scanner.api.github import GetGithubGists
 
 from scanner.file_io import append_to_file, clear_file
-from scanner.generate_activities import convert_gist_to_pipedrive_activity, get_activity_body
+from scanner.generate_activities import generate_activities
 
 logger = logging.getLogger(__name__)
 
 
+def get_gists(username: str, file_path: str, since="", ):
+    gists = GetGithubGists(username, since)
+
+    if gists.get_status_code() != 200:
+        message = f"Error while getting gists for user {username} with status code {gists.get_status_code()}. Body: {gists.get_json()}"
+        logger.error(message)
+        append_to_file(message, file_path)
+        return {}
+
+    return gists.get_json()
+
+
 def parse_gists(username: str, since=""):
     """
-    Parse gists of user and pass each gist to generate_activities.py to convert to pipedrive activity.
+    Parse gists of user and pass gists to activity converter.
 
     :param username: username of the user
     :param since: gists after the given time. Format: YYYY-MM-DDTHH:MM:SSZ.
@@ -20,15 +32,7 @@ def parse_gists(username: str, since=""):
     file_path = f"../server/api/gists/{username}.txt"
     clear_file(file_path)
 
-    gists = GetGithubGists(username, since)
-
-    if gists.get_status_code() != 200:
-        message = f"Error while getting gists for user {username} with status code {gists.get_status_code()}. Body: {gists.get_json()}"
-        logger.error(message)
-        append_to_file(message, file_path)
-        return
-
-    gists = gists.get_json()
+    gists = get_gists(username, file_path, since)
 
     logger.info(f"Found {len(gists)} gists for user {username}")
 
@@ -36,9 +40,4 @@ def parse_gists(username: str, since=""):
         append_to_file(f"No gists added since {since} UTC time.", file_path)
         return
 
-    logger.info(f"START CONVERTING GISTS TO PIPEDRIVE ACTIVITIES")
-    append_to_file(f"{len(gists)} gists added since {since} UTC time.", file_path)
-
-    for gist in gists:
-        append_to_file(str(get_activity_body(gist)), file_path)
-        convert_gist_to_pipedrive_activity(gist)
+    generate_activities(file_path, gists, since)
