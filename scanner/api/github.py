@@ -13,7 +13,7 @@ API_URL = "https://api.github.com"
 
 
 class GetGithubGists:
-    """Simple connector superclass."""
+    """Simple get request to GitHub API."""
 
     def __init__(self, username, since=""):
         """Init connector."""

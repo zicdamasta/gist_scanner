@@ -7,7 +7,11 @@ logger = logging.getLogger(__name__)
 
 
 def convert_gist_to_pipedrive_activity(gist: dict):
-    """Convert gist to pipedrive activity."""
+    """
+    Convert Github gist to Pipedrive activity.
+
+    :param gist: Github gist object with all the data needed to create a Pipedrive activity.
+    """
     logger.info(f"Converting gist {gist['id']} to pipedrive activity")
 
     body = get_activity_body(gist)
@@ -22,7 +26,7 @@ def convert_gist_to_pipedrive_activity(gist: dict):
 
 
 def get_activity_body(gist: dict) -> dict:
-    """Get activity body."""
+    """Extract needed params from gist and generate activity body."""
     created_at = gist["created_at"]
     due_date, due_time = parse_datetime(created_at)
     subject = next(iter(gist["files"]))
@@ -36,6 +40,7 @@ def get_activity_body(gist: dict) -> dict:
 
 
 def generate_description(gist: dict) -> str:
+    """Generate description for activity."""
     url = gist["html_url"]
     user = gist["owner"]["login"]
     return f"Description: {gist['description']}<br>" \

@@ -8,7 +8,13 @@ logger = logging.getLogger(__name__)
 
 
 def scan_users(users: list, hours_interval: int, minutes_interval: int):
-    """Scan users."""
+    """
+    Scan list of users and pass them to gists parser.
+
+    :param users: list of users
+    :param hours_interval: scan interval in hours
+    :param minutes_interval: scan interval in minutes
+    """
     users_file = "../server/api/users.txt"
     clear_file(users_file)
 
@@ -28,6 +34,6 @@ def scan_users(users: list, hours_interval: int, minutes_interval: int):
 
 
 def calculate_since(hours_interval: int, minutes_interval: int):
-    """Calculate since."""
+    """Calculate since time."""
     since = datetime.utcnow() - timedelta(hours=hours_interval, minutes=minutes_interval)
     return since.strftime("%Y-%m-%dT%H:%M:%SZ")

@@ -9,7 +9,12 @@ logger = logging.getLogger(__name__)
 
 
 def parse_gists(username: str, since=""):
-    """Parse gist."""
+    """
+    Parse gists of user and pass each gist to generate_activities.py to convert to pipedrive activity.
+
+    :param username: username of the user
+    :param since: gists after the given time. Format: YYYY-MM-DDTHH:MM:SSZ.
+    """
     logger.info(f"START SCANNING USER {username}")
 
     file_path = f"../server/api/gists/{username}.txt"
