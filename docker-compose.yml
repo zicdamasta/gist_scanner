@@ -23,11 +23,13 @@ services:
     container_name: gist-scanner
     volumes:
       - ./scanner/output:/scanner/output
+      - ./scanner/logs:/scanner/logs
     environment:
+      # USER_LIST_TYPE: env
+      # USER_LIST: tere, zicdamasta
       USER_LIST_TYPE: file
-#      USER_LIST: tere
-      USER_LIST_FILENAME: tere.txt
+      # USER_LIST_FILENAME: tere.txt
       SCANNER_HOUR_INTERVAL: 3
       SCANNER_MINUTE_INTERVAL: 0
-      GITHUB_API_KEY: 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
-      PIPEDRIVE_API_KEY: eaf6cb3dec1ade10fc81ec9ad70175a9925bdaec
+      GITHUB_API_KEY: <YOUR_API_KEY>
+      PIPEDRIVE_API_KEY: <YOUR_API_KEY>

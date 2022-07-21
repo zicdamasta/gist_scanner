@@ -3,7 +3,7 @@ import os
 from flask import Flask, send_from_directory
 from flask_httpauth import HTTPTokenAuth
 
-from get_users import get_users
+from api.users.get_users import get_users
 
 app = Flask(__name__)
 auth = HTTPTokenAuth(scheme='Bearer')
