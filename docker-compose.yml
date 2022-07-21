@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+
+  scanner-server:
+    build:
+        context: .
+        dockerfile: Dockerfile-server
+    image: gist-scanner-server
+    ports:
+      - "80:5000"
+    container_name: gist-scanner-server
+    volumes:
+      - ./scanner/output:/gist_scanner_server/api
+    environment:
+      APP_ENV: development
+      BEARER_TOKEN: tere
+  scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile-scanner
+    image: gist-scanner
+    container_name: gist-scanner
+    volumes:
+      - ./scanner/output:/scanner/output
+    environment:
+      USERS_LIST: admin, bob, choco-bot
+      SCANNER_HOUR_INTERVAL: 3
+      SCANNER_MINUTE_INTERVAL: 0
+      GITHUB_API_KEY: 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
+      PIPEDRIVE_API_KEY: eaf6cb3dec1ade10fc81ec9ad70175a9925bdaec

@@ -1,0 +1,10 @@
+FROM python:3.10-slim
+
+WORKDIR /scanner
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+COPY scanner .
+
+ENV PYTHONPATH "${PYTHONPATH}:/scanner"
+
+CMD python run.py
