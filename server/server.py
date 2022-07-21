@@ -1,14 +1,15 @@
 import os
 
 from flask import Flask, send_from_directory
-from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask_httpauth import HTTPTokenAuth
 
 app = Flask(__name__)
 auth = HTTPTokenAuth(scheme='Bearer')
 
+token = os.environ.get('BEARER_TOKEN', 'token')
+
 tokens = {
-    "token1": "admin"
+    token: "admin"
 }
 
 
