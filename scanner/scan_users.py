@@ -15,25 +15,21 @@ def calculate_since(hours_interval: int, minutes_interval: int):
 
 def scan_users(users: list, hours_interval: int, minutes_interval: int):
     """
-    Scan list of users and pass them to gists parser.
+    Scan list of users and pass them to user parser.
 
     :param users: list of users
     :param hours_interval: scan interval in hours
     :param minutes_interval: scan interval in minutes
     """
-    users_file = "output/users.txt"
-    clear_file(users_file)
 
     logger.info(f"Found {len(users)} user(s) in user list.")
 
     if not users:
         message = "No users found in user list"
         logger.error(message)
-        append_to_file(message, users_file)
         raise Exception(message)
 
     since = calculate_since(hours_interval, minutes_interval)
     logger.info(f"START SCANNING USERS")
     for user in users:
-        append_to_file(user, users_file)
         parse_gists(user, since)

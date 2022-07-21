@@ -11,7 +11,7 @@ services:
       - "80:5000"
     container_name: gist-scanner-server
     volumes:
-      - ./scanner/output:/gist_scanner_server/api
+      - ./scanner/output/user:/server/api/user
     environment:
       APP_ENV: development
       BEARER_TOKEN: tere
@@ -24,7 +24,9 @@ services:
     volumes:
       - ./scanner/output:/scanner/output
     environment:
-      USERS_LIST: admin, bob, choco-bot
+      USER_LIST_TYPE: file
+#      USER_LIST: tere
+      USER_LIST_FILENAME: tere.txt
       SCANNER_HOUR_INTERVAL: 3
       SCANNER_MINUTE_INTERVAL: 0
       GITHUB_API_KEY: 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
