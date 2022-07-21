@@ -11,8 +11,7 @@ def append_to_file(content: str, file_name: str):
             f.write(content + "\n")
     except FileNotFoundError:
         message = f"File {file_name} not found while trying to append."
-        logger.critical(message)
-        raise Exception(message)
+        logger.exception(message)
 
 
 def clear_file(file_name: str):
@@ -23,5 +22,4 @@ def clear_file(file_name: str):
             f.write("")
     except FileNotFoundError:
         message = f"File {file_name} not found while trying to clear."
-        logger.critical(message)
-        raise Exception(message)
+        logger.exception(message)

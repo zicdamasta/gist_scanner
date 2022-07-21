@@ -27,7 +27,7 @@ services:
     environment:
       # USER_LIST_TYPE: env
       # USER_LIST: tere, zicdamasta
-      USER_LIST_TYPE: file
+      USER_LIST_TYPE: bababui
       # USER_LIST_FILENAME: tere.txt
       SCANNER_HOUR_INTERVAL: 3
       SCANNER_MINUTE_INTERVAL: 0

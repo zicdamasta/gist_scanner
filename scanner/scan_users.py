@@ -26,8 +26,7 @@ def scan_users(users: list, hours_interval: int, minutes_interval: int):
 
     if not users:
         message = "No users found in user list"
-        logger.error(message)
-        raise Exception(message)
+        logger.exception(message)
 
     since = calculate_since(hours_interval, minutes_interval)
     logger.info(f"START SCANNING USERS")
