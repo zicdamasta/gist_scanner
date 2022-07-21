@@ -1,12 +1,12 @@
 import logging
 from datetime import datetime
 
-from scanner.api.pipedrive import PostPipedriveActivity
+from api.pipedrive import PostPipedriveActivity
 
 logger = logging.getLogger(__name__)
 
 
-def convert_gist_to_pipedrive_activity(gist: dict):
+def create_activity(gist: dict):
     """
     Convert Github gist to Pipedrive activity.
 
@@ -18,8 +18,8 @@ def convert_gist_to_pipedrive_activity(gist: dict):
     activity = PostPipedriveActivity(**body)
 
     if activity.get_status_code() != 201:
-        logger.error(
-            f"Error while posting activity to Pipedrive with status code {activity.get_status_code()}. Body: {activity.get_json()}")
+        message = f"Error while posting activity to Pipedrive with status code {activity.get_status_code()}. Body: {activity.get_json()}"
+        logger.error(message)
         return
 
     logger.info(f"Activity {gist['id']} added to Pipedrive")

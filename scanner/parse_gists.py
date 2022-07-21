@@ -1,9 +1,9 @@
 import logging
 
-from scanner.api.github import GetGithubGists
+from api.github import GetGithubGists
 
-from scanner.file_io import append_to_file, clear_file
-from scanner.generate_activities import generate_activities
+from file_io import append_to_file, clear_file
+from generate_activities import generate_activities
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +29,7 @@ def parse_gists(username: str, since=""):
     """
     logger.info(f"START SCANNING USER {username}")
 
-    file_path = f"../server/api/gists/{username}.txt"
+    file_path = f"output/gists/{username}.txt"
     clear_file(file_path)
 
     gists = get_gists(username, file_path, since)

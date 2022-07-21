@@ -2,7 +2,8 @@ import os
 
 import logging
 
-from scanner.scan_users import scan_users
+from scan_users import scan_users
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 logger = logging.getLogger(__name__)
 logging_level = logging.getLevelName(os.environ.get('SCANNER_LOG_LEVEL', "DEBUG"))
@@ -11,14 +12,25 @@ logging.basicConfig(level=logging_level,
                     datefmt='%d.%m.%Y '
                             '%H:%M:%S',
                     handlers=[
-                        logging.FileHandler("logs/scanner.log"),
+                        logging.FileHandler("./logs/scanner.log"),
                         logging.StreamHandler()
                     ]
                     )
 
-if __name__ == '__main__':
-    h_interval = os.environ.get('SCANNER_HOUR_INTERVAL', 3)
-    m_interval = os.environ.get('SCANNER_MINUTE_INTERVAL', 0)
 
-    users = ["ozubovasd", "ozubov", "Jose26398", "ngocanhnckh", "abuxton"]
+def run():
+
+    h_interval = int(os.environ.get('SCANNER_HOUR_INTERVAL', 3))
+    m_interval = int(os.environ.get('SCANNER_MINUTE_INTERVAL', 0))
+    users = os.environ.get('USERS_LIST', ['zicdamasta'])
+    users = users.replace(" ", "").split(',')
+
     scan_users(users, h_interval, m_interval)
+
+    scheduler = BlockingScheduler()
+    scheduler.add_job(scan_users, 'interval', args=(users, h_interval, m_interval), hours=h_interval, minutes=m_interval)
+    scheduler.start()
+
+
+if __name__ == '__main__':
+    run()

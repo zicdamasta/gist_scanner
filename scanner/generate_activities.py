@@ -1,7 +1,7 @@
 import logging
 
-from scanner.create_activity import get_activity_body, convert_gist_to_pipedrive_activity
-from scanner.file_io import append_to_file
+from create_activity import get_activity_body, create_activity
+from file_io import append_to_file
 
 logger = logging.getLogger(__name__)
 
@@ -18,4 +18,4 @@ def generate_activities(file_path, gists, since):
     append_to_file(f"{len(gists)} gists added since {since} UTC time.", file_path)
     for gist in gists:
         append_to_file(str(get_activity_body(gist)), file_path)
-        convert_gist_to_pipedrive_activity(gist)
+        create_activity(gist)
