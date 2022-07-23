@@ -4,7 +4,7 @@ import os
 logger = logging.getLogger(__name__)
 
 
-def get_users() -> list:
+def get_users() -> list[str]:
     """
     Get users.
     USER_LIST_TYPE is 'env' - get users from env.
@@ -22,7 +22,7 @@ def get_users() -> list:
     logger.exception(message)
 
 
-def get_users_from_env() -> list:
+def get_users_from_env() -> list[str]:
     """Get users from env."""
     logger.info("Getting users from USER_LIST env variable.")
     users = os.environ.get('USER_LIST')
@@ -34,12 +34,12 @@ def get_users_from_env() -> list:
     return users
 
 
-def convert_string_to_list(string: str) -> list:
+def convert_string_to_list(string: str) -> list[str]:
     """Convert string to list."""
     return string.strip().replace(" ", "").split(',')
 
 
-def get_users_from_file(file_name: str) -> list:
+def get_users_from_file(file_name: str) -> list[str]:
     """Get users from file."""
     logger.info(f"Getting users from file. USER_LIST_FILENAME: {file_name}")
     try:

@@ -28,7 +28,9 @@ def run():
     scan_users(users, h_interval, m_interval)
 
     scheduler = BlockingScheduler()
-    scheduler.add_job(scan_users, 'interval', args=(users, h_interval, m_interval), hours=h_interval,
+    scheduler.add_job(scan_users, 'interval',
+                      args=(users, h_interval, m_interval),
+                      hours=h_interval,
                       minutes=m_interval)
     scheduler.start()
 

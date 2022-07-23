@@ -8,9 +8,9 @@ logger = logging.getLogger(__name__)
 
 def create_activity(gist: dict):
     """
-    Convert Github gist to Pipedrive activity.
+    Convert GitHub gist to Pipedrive activity.
 
-    :param gist: Github gist object with all the data needed to create a Pipedrive activity.
+    :param gist: GitHub gist object with all the data needed to create a Pipedrive activity.
     """
     logger.info(f"Converting gist {gist['id']} to pipedrive activity")
 

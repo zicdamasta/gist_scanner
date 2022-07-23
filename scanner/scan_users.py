@@ -29,6 +29,6 @@ def scan_users(users: list, hours_interval: int, minutes_interval: int):
         logger.exception(message)
 
     since = calculate_since(hours_interval, minutes_interval)
-    logger.info(f"START SCANNING USERS")
+    logger.info(f"Start scanning users.")
     for user in users:
         parse_gists(user, since)

@@ -22,19 +22,19 @@ def get_gists(username: str, file_path: str, since="", ):
 
 def parse_gists(username: str, since=""):
     """
-    Parse user of user and pass user to activity converter.
+    Parse user gists and pass them to activity converter.
 
     :param username: username of the user
-    :param since: user after the given time. Format: YYYY-MM-DDTHH:MM:SSZ.
+    :param since: added gists after the given time. Format: YYYY-MM-DDTHH:MM:SSZ.
     """
-    logger.info(f"START SCANNING USER {username}")
+    logger.info(f"Start scanning user {username}")
 
     file_path = f"output/user/{username}.txt"
     clear_file(file_path)
 
     gists = get_gists(username, file_path, since)
 
-    logger.info(f"Found {len(gists)} user for user {username}")
+    logger.info(f"Found {len(gists)} gists for user {username}")
 
     if not gists:
         append_to_file(f"No GitHub gists added since {since} UTC time.", file_path)
