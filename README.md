@@ -9,6 +9,10 @@ Application has two web endpoints
 * First shows all users that have been scanned.
 * Second shows the gists for that user that were added since the last visit.
 
+Server and scanner run in seperated containers for clearer log and better scalability options.<br>
+For simplicity there is no database and data is stored as .txt files. <br>
+Server see generated .txt files via bind mount `./scanner/output/user:/server/api/user`.
+
 ### Stack:
  * 🐍 Python 3.10 for scanning gists
  * Flask 2.1.3 for simple server
@@ -21,7 +25,7 @@ Application has two web endpoints
    - If `USER_LIST_TYPE` is `file` then add users to the `scanner/input/users.txt` file.
 2. Set the `GITHUB_TOKEN` environment variable to the github token for the user.
 3. Set the `PIPEDRIVE_TOKEN` environment variable to the pipedrive token for the user.
-4. Run the application with `docker-compose up` 🚀
+4. Run the application with `docker-compose up --build` 🚀
 5. Check the application logs 📜 and your Pipedrive activities list 📝
 
 ### Endpoints
@@ -29,8 +33,9 @@ Application has two web endpoints
 There are Bearer Token Authorization.
 
 Default token is `token`. You can set your own token by setting the `BEARER_TOKEN` environment variable for the server.
-* `/users` - Shows all users that have been scanned.
-* `/user/<username>` - Shows the gists for that user that were added since the last visit.
+* `GET /users` - Shows all users that have been scanned.
+* `GET /user/<username>` - Shows the gists for that user that were added since the last visit.
+
 
 
 ### Docker environment variables
@@ -41,11 +46,12 @@ Default token is `token`. You can set your own token by setting the `BEARER_TOKE
   * if `USER_LIST_TYPE` is env you can use `USER_LIST`
   * `USER_LIST` - comma separated list of users to scan
   * if `USER_LIST_TYPE` is file you can use `USER_LIST_FILE`
-  * `USER_LIST_FILENAME` text file with list of users to scan. if not specified, it will be `users.txt`
-* `SCANNER_HOUR_INTERVAL` - period of time in hours to scan for new gists. if not specified, it will be `3`
-* `SCANNER_MINUTE_INTERVAL` - period of time in minutes to scan for new gists. if not specified, it will be `0`
+  * `USER_LIST_FILENAME` text file with list of users to scan. Default value `users.txt`
+* `SCANNER_HOUR_INTERVAL` - period of time in hours to scan for new gists. Default value `3`
+* `SCANNER_MINUTE_INTERVAL` - period of time in minutes to scan for new gists. Default value `0`
+* `SCANNER_DEBUG_LEVEL` - set debug level for logs. Default value `DEBUG`
 
 #### Server
-* `SERVER_PORT` - port to run the server on. if not specified, it will be `5000`
-* `APP_ENV` - environment to run the application. if not specified, it will be `development`
-* `BEARER_TOKEN` - bearer token to use for authentication. if not specified, it will be `token`
+* `SERVER_PORT` - port to run the server on. Default value `5000`
+* `APP_ENV` - environment to run the application. Default value `development`
+* `BEARER_TOKEN` - bearer token to use for authentication. Default value `token`
