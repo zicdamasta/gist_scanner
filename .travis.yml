@@ -1,0 +1,6 @@
+language: python
+services:
+  - docker
+install:
+  - docker-compose up --build
+script: ls -la
