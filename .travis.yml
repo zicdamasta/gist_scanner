@@ -1,14 +1,12 @@
 language: python
 services:
   - docker
-install:
-  - docker-compose up --build -d
-addons:
-  ssh_known_hosts: ${DEPLOY_HOST}
+
 jobs:
   include:
     - stage: test
       script:
+      - docker-compose up --build -d
       - docker-compose run scanner pytest
       - docker-compose run scanner flake8
     - stage: build and push
@@ -21,4 +19,5 @@ jobs:
       - docker logout
     - stage: deploy
       script:
+      - echo ${SSH_PUBLIC_KEY} >> $HOME/.ssh/known_hosts
       - ssh ${DEPLOY_USER}@${DEPLOY_HOST} "/home/${DEPLOY_USER}/scripts/deploy.sh ${TRAVIS_BUILD_NUMBER} ${DOCKER_USERNAME} ${DOCKER_PASSWORD}"
