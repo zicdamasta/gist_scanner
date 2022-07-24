@@ -5,7 +5,7 @@ services:
   scanner-server:
     build:
         context: .
-        dockerfile: Dockerfile-server-dev
+        dockerfile: Dockerfile-server
     image: gist-scanner-server
     ports:
       - "80:5000"
