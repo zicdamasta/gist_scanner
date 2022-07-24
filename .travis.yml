@@ -3,6 +3,9 @@ services:
   - docker
 install:
   - docker-compose up --build -d
-script:
-  - docker-compose run scanner pytest
-  - docker-compose run scanner flake8
+jobs:
+  include:
+    - stage: test
+      script:
+      - docker-compose run scanner pytest
+      - docker-compose run scanner flake8
