@@ -55,3 +55,35 @@ Default token is `token`. You can set your own token by setting the `BEARER_TOKE
 * `SERVER_PORT` - port to run the server on. Default value `5000`
 * `APP_ENV` - environment to run the application. Default value `development`
 * `BEARER_TOKEN` - bearer token to use for authentication. Default value `token`
+
+## CI /CD
+CI/CD is done using Travis CI.
+
+Stages:
+* Testing
+* Build and push to docker hub
+* Deploy to production
+
+
+## The Cloud
+
+Application is deployed to the Google Cloud Platform.
+Provisioning is done using Terraform with Ansible.
+
+Application is running in a container.
+nginx proxy is used to serve the application.
+
+`GET /users` - Shows all users that have been scanned.
+
+**NB: Host in headers is important!**
+```bash
+curl --location --request GET 'http://34.88.192.29/users' \
+--header 'Host: gist-scanner' \
+--header 'Authorization: Bearer token'
+```
+
+`GET /user/<username>` -Shows the gists for that user that were added since the last visit.
+```bash
+curl --location --request GET 'http://34.88.192.29/user/choco-bot' \
+--header 'Host: gist-scanner' \
+--header 'Authorization: Bearer token'
