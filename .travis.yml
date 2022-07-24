@@ -13,7 +13,7 @@ jobs:
       script:
       - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - docker build -t zicdamasta/gist-scanner:server-v$TRAVIS_BUILD_NUMBER . -f Dockerfile-server
-      - docker build -t zicdamasta/gist-scanner:scanner-v$TRAVIS_BUILD_NUMBER . -f Dockerfile-server
-      - docker push zicdamasta/gist-scanner:scanner-v$TRAVIS_BUILD_NUMBER
       - docker push zicdamasta/gist-scanner:server-v$TRAVIS_BUILD_NUMBER
+      - docker build -t zicdamasta/gist-scanner:scanner-v$TRAVIS_BUILD_NUMBER . -f Dockerfile-scanner
+      - docker push zicdamasta/gist-scanner:scanner-v$TRAVIS_BUILD_NUMBER
       - docker logout
