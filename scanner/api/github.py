@@ -8,7 +8,7 @@ from requests import Response
 
 logger = logging.getLogger(__name__)
 
-API_KEY = os.environ.get('GITHUB_API_KEY', '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')
+API_KEY = os.environ.get('GITHUB_API_KEY', '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')
 API_URL = "https://api.github.com"
 
 
