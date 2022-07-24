@@ -54,7 +54,7 @@ Default token is `token`. You can set your own token by setting the `BEARER_TOKE
 * `USER_LIST_TYPE` - env or file
   * if `USER_LIST_TYPE` is env you can use `USER_LIST`
   * `USER_LIST` - comma separated list of users to scan
-  * if `USER_LIST_TYPE` is file you can use `USER_LIST_FILE`
+  * if `USER_LIST_TYPE` is file you can use `USER_LIST_FILENAME`
   * `USER_LIST_FILENAME` text file with list of users to scan. Default value `users.txt`
 * `SCANNER_HOUR_INTERVAL` - period of time in hours to scan for new gists. Default value `3`
 * `SCANNER_MINUTE_INTERVAL` - period of time in minutes to scan for new gists. Default value `0`
