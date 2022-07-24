@@ -18,5 +18,4 @@ jobs:
       - docker logout
     - stage: deploy
       script:
-      - echo ${SSH_PUBLIC_KEY} >> $HOME/.ssh/known_hosts
-      - ssh ${DEPLOY_USER}@${DEPLOY_HOST} "/home/${DEPLOY_USER}/scripts/deploy.sh ${TRAVIS_BUILD_NUMBER} ${DOCKER_USERNAME} ${DOCKER_PASSWORD}"
+      - ssh -o "StrictHostKeyChecking=no" ${DEPLOY_USER}@${DEPLOY_HOST} "/home/${DEPLOY_USER}/scripts/deploy.sh ${TRAVIS_BUILD_NUMBER} ${DOCKER_USERNAME} ${DOCKER_PASSWORD}"
