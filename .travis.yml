@@ -9,8 +9,11 @@ jobs:
       script:
       - docker-compose run scanner pytest
       - docker-compose run scanner flake8
-    - stage: build
+    - stage: build and push
       script:
       - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - docker build -t zicdamasta/gist-scanner:server-v$TRAVIS_BUILD_NUMBER . -f Dockerfile-server
       - docker build -t zicdamasta/gist-scanner:scanner-v$TRAVIS_BUILD_NUMBER . -f Dockerfile-server
+      - docker push zicdamasta/gist-scanner:scanner-v$TRAVIS_BUILD_NUMBER
+      - docker push zicdamasta/gist-scanner:server-v$TRAVIS_BUILD_NUMBER
+      - docker logout
