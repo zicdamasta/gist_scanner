@@ -1,5 +1,5 @@
 # Gist Scanner
-
+[![Build Status](https://app.travis-ci.com/zicdamasta/gist_scanner.svg?token=1U5QxytYfua1YWiB3p5J&branch=main)](https://app.travis-ci.com/zicdamasta/gist_scanner)
 
 Using the Github API query user’s publicly available github gists and
 create activity in Pipedrive for each gist. Application periodically
