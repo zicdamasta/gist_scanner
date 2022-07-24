@@ -1,6 +1,4 @@
-language: python
-python:
-  - 3.10
+language: minimal
 services:
   - docker
 jobs:
