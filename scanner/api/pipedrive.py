@@ -8,7 +8,7 @@ from requests import Response
 
 logger = logging.getLogger(__name__)
 
-API_KEY = os.environ.get('PIPEDRIVE_API_KEY', 'eaf6cb3dec1ade10fc81ec9ad70175a9925bdaec')
+API_KEY = os.environ.get('PIPEDRIVE_API_KEY')
 API_URL = "https://api.pipedrive.com/v1"
 
 
