@@ -3,6 +3,8 @@ services:
   - docker
 install:
   - docker-compose up --build -d
+addons:
+  ssh_known_hosts: ${DEPLOY_HOST}
 jobs:
   include:
     - stage: test
