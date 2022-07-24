@@ -1,7 +1,6 @@
 import logging
 from datetime import datetime, timedelta
 
-from file_io import append_to_file, clear_file
 from parse_gists import parse_gists
 
 logger = logging.getLogger(__name__)
@@ -29,6 +28,6 @@ def scan_users(users: list, hours_interval: int, minutes_interval: int):
         logger.exception(message)
 
     since = calculate_since(hours_interval, minutes_interval)
-    logger.info(f"Start scanning users.")
+    logger.info("Start scanning users.")
     for user in users:
         parse_gists(user, since)

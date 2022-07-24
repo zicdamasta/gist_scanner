@@ -14,7 +14,7 @@ def generate_activities(file_path, gists, since):
     :param gists: gists to generate activities from
     :param since: timestamp used in github api to fetch gists added after that datetime
     """
-    logger.info(f"Start converting gists to Pipedrive activities.")
+    logger.info("Start converting gists to Pipedrive activities.")
     append_to_file(f"{len(gists)} gists added since {since} UTC time.", file_path)
     for gist in gists:
         append_to_file(str(get_activity_body(gist)), file_path)
