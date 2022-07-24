@@ -87,3 +87,17 @@ curl --location --request GET 'http://34.88.192.29/users' \
 curl --location --request GET 'http://34.88.192.29/user/choco-bot' \
 --header 'Host: gist-scanner' \
 --header 'Authorization: Bearer token'
+```
+
+### Server setup
+* install Terraform
+* install Ansible
+
+Generate Google key.json and save it as infrastructure/key.json
+
+Run terraform script to provision the infrastructure.
+```bash
+cd infrastructure
+terraform init
+terraform apply
+```
