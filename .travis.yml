@@ -2,5 +2,7 @@ language: python
 services:
   - docker
 install:
-  - docker-compose up --build
-script: ls -la
+  - docker-compose up --build -d
+script:
+  - docker-compose run scanner pytest
+  - docker-compose run scanner flake8
