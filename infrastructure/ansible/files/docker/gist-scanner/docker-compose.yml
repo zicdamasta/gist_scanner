@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+
+  scanner-server:
+    restart: always
+    image: zicdamasta/gist-scanner:server-v${VERSION_TAG}
+    container_name: gist-scanner-server
+    volumes:
+      - ./scanner/output/user:/server/api/user
+    expose:
+      - 8080
+    env_file:
+      - .env
+    networks:
+      - nginx-proxy
+    entrypoint: gunicorn -w 4 'server:app' -b :8080
+  scanner:
+    restart: always
+    image: zicdamasta/gist-scanner:scanner-v${VERSION_TAG}
+    container_name: gist-scanner
+    volumes:
+      - ./scanner/output:/scanner/output
+      - ./scanner/logs:/scanner/logs
+    env_file:
+      - .env
+networks:
+  nginx-proxy:
+    name: nginx-proxy
+    external: true

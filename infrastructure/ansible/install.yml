@@ -1,0 +1,112 @@
+---
+- hosts: all
+  pre_tasks:
+  - name: Update OS packages and tidy up
+    become: yes
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      autoremove: yes
+      autoclean: yes
+
+  tasks:
+    - name: Remove apache2
+      become: yes
+      apt:
+        name: apache2*
+        state: absent
+
+    - name: Install Python3
+      become: yes
+      apt:
+        name: python3
+        state: present
+
+    - name: Install Python3-pip
+      become: yes
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install Docker
+      become: yes
+      block:
+      - name: Install Docker prerequisites
+        apt:
+          name: "{{ item }}"
+          state: present
+        with_items:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+
+      - name: Add Docker GPG apt Key
+        apt_key:
+          url: https://download.docker.com/linux/ubuntu/gpg
+          state: present
+
+      - name: Add Docker Repository
+        apt_repository:
+          repo: deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+          state: present
+
+      - name: Install docker
+        apt:
+          name: "{{item}}"
+          state: latest
+          update_cache: yes
+        loop:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+
+      - name: Install Docker Module for Python
+        pip:
+          name: docker
+
+      - name: Add ubuntu user to docker group
+        user:
+          name: ubuntu
+          groups: docker
+          append: yes
+
+      - name: Install Docker Compose
+        get_url:
+          url: "https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64"
+          dest: /usr/local/bin/docker-compose
+          mode: u+x,g+x,o+x
+
+      - name: Start docker service
+        service:
+          name: docker
+          state: started
+          enabled: yes
+
+    - name: Create docker and scripts directories
+      file:
+        path: "/home/ubuntu/{{item}}"
+        state: directory
+        mode: 0755
+        owner: ubuntu
+        group: ubuntu
+      loop:
+        - scripts
+        - docker
+
+    - name: Transfer docker dir
+      copy:
+        src: "docker"
+        dest: "/home/ubuntu"
+        owner: "ubuntu"
+        group: "ubuntu"
+
+
+    - name: Transfer scripts dir
+      copy:
+        src: "scripts"
+        dest: "/home/ubuntu"
+        owner: "ubuntu"
+        group: "ubuntu"

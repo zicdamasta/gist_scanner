@@ -7,6 +7,4 @@ COPY server .
 
 ENV PYTHONPATH "${PYTHONPATH}:/server"
 
-EXPOSE 5000
-
 CMD python server.py
