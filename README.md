@@ -14,9 +14,18 @@ For simplicity there is no database and data is stored as .txt files. <br>
 Server see generated .txt files via bind mount `./scanner/output/user:/server/api/user`.
 
 ### Stack:
+Application:
  * 🐍 Python 3.10 for scanning gists
- * Flask 2.1.3 for simple server
- * 🐋 Docker + Docker Compose
+ * Flask 2.1.3 for endpoints and local dev server
+ * Gunicorn for prod server
+ 
+Infrastructure:
+ * 🐳  Docker + Docker Compose
+ * Terraform
+ * Ansible
+
+CI/CD
+ * Travis CI
 
 
 ### How to run the application
@@ -62,7 +71,7 @@ CI/CD is done using Travis CI.
 Stages:
 * Testing
 * Build and push to docker hub
-* Deploy to production
+* Deploy to production by running deployment script on the server.
 
 
 ## The Cloud
@@ -101,3 +110,12 @@ cd infrastructure
 terraform init
 terraform apply
 ```
+
+## What can be improved?
+* Add database support.
+* Add more tests.
+* Add more endpoints.
+* Run application in K8s.
+* Refactor IoC part.
+* Ideally IoC, scanner and server should be in seperate repositories.
+
