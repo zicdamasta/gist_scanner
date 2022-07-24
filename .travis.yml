@@ -17,3 +17,6 @@ jobs:
       - docker build -t zicdamasta/gist-scanner:scanner-v$TRAVIS_BUILD_NUMBER . -f Dockerfile-scanner
       - docker push zicdamasta/gist-scanner:scanner-v$TRAVIS_BUILD_NUMBER
       - docker logout
+    - stage: deploy
+      script:
+      - ssh ${DEPLOY_USER}@${DEPLOY_HOST} "/home/${DEPLOY_USER}/scripts/deploy.sh ${TRAVIS_BUILD_NUMBER} ${DOCKER_USERNAME} ${DOCKER_PASSWORD}"
