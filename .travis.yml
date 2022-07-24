@@ -22,4 +22,5 @@ jobs:
       script:
       - echo "$SSH_KEY" > ~/.ssh/key
       - chmod 600 ~/.ssh/key
+      - ssh-add ~/.ssh/key
       - ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/key ${DEPLOY_USER}@${DEPLOY_HOST} "/home/${DEPLOY_USER}/scripts/deploy.sh ${TRAVIS_BUILD_NUMBER} ${DOCKER_USERNAME} ${DOCKER_PASSWORD}"
