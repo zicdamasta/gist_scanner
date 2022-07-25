@@ -1,6 +1,4 @@
-language: node_js
-node_js:
-  - lts/*
+language: minimal
 services:
   - docker
 jobs:
@@ -12,10 +10,6 @@ jobs:
       - docker-compose up --build -d
       - docker-compose run scanner pytest
       - docker-compose run scanner flake8
-    - stage: Snyc vulnerability scan
-      script:
-      - npm install -g snyk@latest
-      - snyk test --all-projects --exclude=infrastucture
     - stage: build and push
       script:
       - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
