@@ -14,7 +14,7 @@ services:
       - ./scanner/output/user:/server/api/user
     env_file:
       - .env
-    entrypoint: ["python", "server.py"]
+    command: ["python", "server.py"]
   scanner:
     build:
       context: .
