@@ -1,4 +1,4 @@
-language: minimal
+language: generic
 services:
   - docker
 jobs:
@@ -10,6 +10,12 @@ jobs:
       - docker-compose up --build -d
       - docker-compose run scanner pytest
       - docker-compose run scanner flake8
+    - stage: Snyc vulnerability scan
+      script:
+      - pip install pipenv
+      - npm install -g snyk@latest
+      - snyk test --file=Dockerfile-server --exclude-base-image-vulns
+      - snyk test --file=Dockerfile-scanner --exclude-base-image-vulns
     - stage: build and push
       script:
       - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
