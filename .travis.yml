@@ -10,6 +10,7 @@ jobs:
       - docker-compose up --build -d
       - docker-compose run scanner pytest
       - docker-compose run scanner flake8
+      - docker-compose run scanner-server flake8
     - stage: build and push
       script:
       - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
