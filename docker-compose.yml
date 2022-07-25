@@ -13,7 +13,7 @@ services:
     volumes:
       - ./scanner/output/user:/server/api/user
     env_file:
-      - .env.example
+      - .env
     entrypoint: ["python", "server.py"]
   scanner:
     build:
@@ -25,4 +25,4 @@ services:
       - ./scanner/output:/scanner/output
       - ./scanner/logs:/scanner/logs
     env_file:
-      - .env.example
+      - .env

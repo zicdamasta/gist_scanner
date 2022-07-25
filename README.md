@@ -29,13 +29,14 @@ CI/CD
 
 
 ### How to run the application
-1. Specify the `USER_LIST_TYPE` environment variable to either `env` or `file`
-   - If `USER_LIST_TYPE` is `env` then specify users in the `USER_LIST` environment variable as comma seperated list. For example `USER_LIST: user1,user2,user3`
-   - If `USER_LIST_TYPE` is `file` then add users to the `scanner/input/users.txt` file.
-2. Set the `GITHUB_TOKEN` environment variable to the github token for the user.
-3. Set the `PIPEDRIVE_TOKEN` environment variable to the pipedrive token for the user.
-4. Run the application with `docker-compose up --build` 🚀
-5. Check the application logs 📜 and your Pipedrive activities list 📝
+1. Create .env file. You can use `.env.example` as a template.
+   1. Specify the `USER_LIST_TYPE` environment variable to either `env` or `file`
+      - If `USER_LIST_TYPE` is `env` then specify users in the `USER_LIST` environment variable as comma seperated list. For example `USER_LIST: user1,user2,user3`
+      - If `USER_LIST_TYPE` is `file` then add users to the `scanner/input/users.txt` file.
+   2. Set the `GITHUB_TOKEN` environment variable to the github token for the user.
+   3. Set the `PIPEDRIVE_TOKEN` environment variable to the pipedrive token for the user.
+2. Run the application with `docker-compose up --build` 🚀
+3. Check the application logs 📜 and your Pipedrive activities list 📝
 
 ### Endpoints
 
