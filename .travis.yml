@@ -12,6 +12,9 @@ jobs:
       - docker-compose run scanner flake8
     - stage: Snyc vulnerability scan
       script:
+      - sudo npm cache clean -f
+      - sudo npm install -g n
+      - sudo n stable
       - pip install pipenv
       - npm install -g snyk@latest
       - snyk test --file=Dockerfile-server --exclude-base-image-vulns
