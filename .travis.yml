@@ -5,8 +5,8 @@ jobs:
   include:
     - stage: test
       script:
-      - echo "GITHUB_API_KEY=$GITHUB_API_KEY" >> .env.example
-      - echo "PIPEDRIVE_API_KEY=$PIPEDRIVE_API_KEY" >> .env.example
+      - echo "GITHUB_API_KEY=$GITHUB_API_KEY" >> .env
+      - echo "PIPEDRIVE_API_KEY=$PIPEDRIVE_API_KEY" >> .env
       - docker-compose up --build -d
       - docker-compose run scanner pytest
       - docker-compose run scanner flake8
