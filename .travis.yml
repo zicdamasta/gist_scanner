@@ -15,8 +15,7 @@ jobs:
     - stage: Snyc vulnerability scan
       script:
       - npm install -g snyk@latest
-      - snyk test --file=Dockerfile-server --exclude-base-image-vulns
-      - snyk test --file=Dockerfile-scanner --exclude-base-image-vulns
+      - snyk test --all-projects --exclude=infrastucture
     - stage: build and push
       script:
       - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
