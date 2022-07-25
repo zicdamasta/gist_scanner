@@ -101,8 +101,8 @@ curl --location --request GET 'http://34.88.192.29/user/choco-bot' \
 ### Server setup
 * install Terraform
 * install Ansible
-
-Generate Google key.json and save it as infrastructure/key.json
+* Generate Google key.json and save it as infrastructure/key.json
+* Set project_id and ssh keys in locals.tf
 
 Run terraform script to provision the infrastructure.
 ```bash
@@ -116,6 +116,6 @@ terraform apply
 * Add more tests.
 * Add more endpoints.
 * Run application in K8s.
-* Refactor IoC part.
-* Ideally IoC, scanner and server should be in seperate repositories.
+* Refactor IaC part.
+* Ideally IaC, scanner and server should be in seperate repositories.
 
