@@ -43,7 +43,7 @@ There are Bearer Token Authorization.
 
 Default token is `token`. You can set your own token by setting the `BEARER_TOKEN` environment variable for the server.
 * `GET /users` - Shows all users that have been scanned.
-* `GET /user/<username>` - Shows the gists for that user that were added since the last visit.
+* `GET /user/<username>` - Shows the gists for that user that were added since the last visit (last scan).
 
 
 
