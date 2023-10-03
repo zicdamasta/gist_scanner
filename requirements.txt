@@ -25,7 +25,7 @@ six==1.16.0
 toml==0.10.2
 tzdata==2022.1
 tzlocal==4.2
-urllib3==1.26.10
+urllib3==1.26.17
 Werkzeug==2.2.3
 
 pytest~=7.1.2
